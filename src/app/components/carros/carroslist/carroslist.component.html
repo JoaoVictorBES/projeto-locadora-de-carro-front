@@ -11,9 +11,16 @@
 
           <h3> Listagem de Carros</h3>
           <div class="direita">
+
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="new()">
+              novo
+            </button>
+
+            <!--
             <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">
               novo
             </button>
+          -->
           </div>
           <br>
           <table border="1" class="table table-striped">
@@ -25,12 +32,11 @@
             </thead>
             <tbody>
 
-
               <tr *ngFor= "let carro of lista; let track = index;">
                 <td>{{ carro.id }}</td>
                 <td>{{ carro.nome }}</td>
                 <td class="direita">
-                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple [routerLink]= "['admin/carros/edit', carro.id]">
+                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(carro)">
                     Editar
                   </button>
 
@@ -52,3 +58,20 @@
   </div>
 
 </div>
+<ng-template #modalCarroDetalhe>
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+
+  <app-carrosdetails [carro]="carroEdit" (retorno)="retornoDetalhe ($event)"></app-carrosdetails>
+
+</div>
+
+</ng-template>

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { Subscriber } from 'rxjs';
 import { Carro } from 'src/app/models/carro';
 
 @Component({
@@ -15,7 +16,8 @@ import { Carro } from 'src/app/models/carro';
 })
 export class CarrosdetailsComponent  {
 
-  carro: Carro = new Carro(0, "");
+  @Input ("carro") carro: Carro = new Carro(0, "");
+  @Output('retorno') retorno: EventEmitter<Carro> = new EventEmitter<Carro>();
   router = inject(ActivatedRoute);
   router2 = inject(Router);
 
@@ -24,7 +26,7 @@ export class CarrosdetailsComponent  {
     if (id > 0){
       this.findById(id);
     }
-    
+
   }
 
   findById(id: number){
@@ -41,6 +43,8 @@ export class CarrosdetailsComponent  {
     alert ('Salvo com sucesso!');
     this.router2.navigate(['admin/carros'], { state: { carroNovo: this.carro} });
     }
+
+    this.retorno.emit(this.carro);
   }
 
 }
