@@ -24,6 +24,8 @@ import { LoginComponent } from './components/layout/login/login.component';
 import { CarrosdetailsComponent } from './components/carros/carrosdetails/carrosdetails.component';
 import { CarroslistComponent } from './components/carros/carroslist/carroslist.component';
 import { CommonModule } from '@angular/common';
+import { MarcasdetailsComponent } from './components/marcas/marcasdetails/marcasdetails.component';
+import { MarcaslistComponent } from './components/marcas/marcaslist/marcaslist.component';
 
 
 @NgModule({
@@ -56,11 +58,12 @@ import { CommonModule } from '@angular/common';
     CarrosdetailsComponent,
     CarroslistComponent,
     MenuComponent,
-    AppComponent
-
+    AppComponent,
+    MarcasdetailsComponent,
+    MarcaslistComponent
   ],
   providers: []
-  
+
 })
 
 

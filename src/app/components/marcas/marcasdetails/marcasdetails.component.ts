@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-marcasdetails',
   templateUrl: './marcasdetails.component.html',
   styleUrls: ['./marcasdetails.component.scss'],
-  imports: [],
+  imports: [RouterOutlet],
   standalone: true
 })
 export class MarcasdetailsComponent {}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { MarcaslistComponent } from '../../marcas/marcaslist/marcaslist.component';
 
 @Component({
   selector: 'app-principal',

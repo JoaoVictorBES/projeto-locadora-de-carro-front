@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PrincipalComponent } from '../principal/principal.component';
-import { AppComponent } from 'src/app/app.component';
+import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [],
+  imports: [MdbCollapseModule],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 

@@ -4,28 +4,28 @@
 
     <div class="col-lg-4"></div>
 
-    <div class="col-lg-4 centralizar topo" >
+    <div class="col-lg-4 centralizar topo">
 
       <div class="card">
         <div class="card-body">
 
           <h3>Autentique-se</h3>
           <br>
-          
+
           <mdb-form-control>
-            <input mdbInput type="text" id="usuario" class="form-control" />
+            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="usuario" />
             <label mdbLabel class="form-label" for="usuario">Usuário</label>
           </mdb-form-control>
 
           <br>
 
           <mdb-form-control>
-            <input mdbInput type="text" id="senha" class="form-control" />
+            <input mdbInput type="text" id="senha" class="form-control" [(ngModel)]="senha"/>
             <label mdbLabel class="form-label" for="senha">Senha</label>
           </mdb-form-control>
 
 
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple>Acessar</button>
+          <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="logar()">Acessar</button>
 
         </div>
       </div>
@@ -39,4 +39,3 @@
   </div>
 
 </div>
-

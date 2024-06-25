@@ -1,1 +1,54 @@
-<p>carroslist works!</p>
+<br>
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-lg-12">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h3> Listagem de Carros</h3>
+          <div class="direita">
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">
+              novo
+            </button>
+          </div>
+          <br>
+          <table border="1" class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+              </tr>
+            </thead>
+            <tbody>
+
+
+              <tr *ngFor= "let carro of lista; let track = index;">
+                <td>{{ carro.id }}</td>
+                <td>{{ carro.nome }}</td>
+                <td class="direita">
+                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple [routerLink]= "['admin/carros/edit', carro.id]">
+                    Editar
+                  </button>
+
+                  <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deleteById(carro)">
+                    Deletar
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
