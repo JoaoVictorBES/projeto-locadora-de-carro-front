@@ -26,11 +26,11 @@ import { CarroslistComponent } from './components/carros/carroslist/carroslist.c
 import { CommonModule } from '@angular/common';
 import { MarcasdetailsComponent } from './components/marcas/marcasdetails/marcasdetails.component';
 import { MarcaslistComponent } from './components/marcas/marcaslist/marcaslist.component';
+import { appConfig } from './app.config';
 
 
 @NgModule({
   declarations: [
-
 
   ],
   imports: [
