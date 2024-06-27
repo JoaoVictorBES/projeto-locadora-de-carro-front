@@ -1,3 +1,4 @@
+import { CarroService } from './../../../services/carro.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
@@ -22,11 +23,10 @@ export class CarroslistComponent  {
   @ViewChild('modalCarroDetalhe') modalCarroDetalhe!: TemplateRef<any>; // referencia do template da model no html
   modalRef!: MdbModalRef<any>;
 
-  constructor(){
+  carroService = inject(CarroService);
 
-    this.lista.push(new Carro(1, "Corsa"));
-    this.lista.push(new Carro(2, 'Fusca'));
-    this.lista.push(new Carro(3, 'Gol'));
+  constructor(){
+    this.findAll();
 
     let carroNovo = history.state.carroNovo;
     let carroEditado = history.state.carroEditado
@@ -43,33 +43,48 @@ export class CarroslistComponent  {
 
   }
 
-  deleteById(carro: Carro){
-    if (confirm("Tem certeza que deseja deletar este registro?") ){
-    let indice = this.lista.findIndex(x => {return x.id == carro.id});
-    this.lista.splice(indice, 1);
-  }
-  }
+    findAll(){
 
-  new (){
-    this.carroEdit = new Carro(0, "");
-    this.modalRef = this.modalService.open(this.modalCarroDetalhe);
-  }
+      this.carroService.findAll().subscribe({
+        next: lista => { //quando o back retornar oque se espera
+          this.lista = lista;
+        },
+        error: erro =>{ //quando ocorrer qualquer erro
+          alert('Ocorreu algum erro')
+        }
+      });
 
-  edit(carro: Carro){
-    this.carroEdit = Object.assign({}, carro);
-    this.modalRef = this.modalService.open(this.modalCarroDetalhe);
-
-  }
-
-  retornoDetalhe(carro: Carro){
-    if (carro.id > 0){
-      let indice = this.lista.findIndex(x => { return x.id == carro.id});
-      this.lista[indice] = carro;
-    }else{
-      carro.id = 55;
-      this.lista.push(carro);
     }
 
-    this.modalRef.close();
-  }
+    deleteById(Carro: Carro){
+      if (confirm("Tem certeza que deseja deletar este registro?") ){
+      let indice = this.lista.findIndex(x => {return x.id == Carro.id});
+      this.lista.splice(indice, 1);
+      }
+    }
+
+    new (){
+      this.carroEdit = new Carro(0, "");
+      this.modalRef = this.modalService.open(this.modalCarroDetalhe);
+    }
+
+    edit(carro: Carro){
+      this.carroEdit = Object.assign({}, carro);
+      this.modalRef = this.modalService.open(this.modalCarroDetalhe);
+
+    }
+
+    retornoDetalhe(carro: Carro){
+      if (carro.id > 0){
+        let indice = this.lista.findIndex(x => { return x.id == carro.id});
+        this.lista[indice] = carro;
+      }else{
+        carro.id = 55;
+        this.lista.push(carro);
+      }
+
+      this.modalRef.close();
+    }
 }
+
+
