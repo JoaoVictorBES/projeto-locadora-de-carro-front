@@ -7,13 +7,15 @@ import { Carro } from 'src/app/models/carro';
 import { CarrosdetailsComponent } from '../carrosdetails/carrosdetails.component';
 
 @Component({
-  selector: 'app-carroslist',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterLink, MdbModalModule, CarrosdetailsComponent],
-  templateUrl: './carroslist.component.html',
-  styleUrls: ['./carroslist.component.scss'],
+    selector: 'app-carroslist',
+    standalone: true,
+    templateUrl: './carroslist.component.html',
+    styleUrls: ['./carroslist.component.scss'],
+    imports: [CommonModule, CarroslistComponent, CarrosdetailsComponent]
 })
 export class CarroslistComponent  {
+
+  // Declarações
 
   lista: Carro[] = [];
   carroEdit: Carro = new Carro(0, "");
@@ -36,7 +38,7 @@ export class CarroslistComponent  {
       this.lista.push(carroNovo);
     }
 
-    if (carroEditado){
+    if (carroEditado != null){
       let indice = this.lista.findIndex(x => {return x.id == carroEditado.id});
       this.lista[indice] = carroEditado;
     }
@@ -58,8 +60,18 @@ export class CarroslistComponent  {
 
     deleteById(Carro: Carro){
       if (confirm("Tem certeza que deseja deletar este registro?") ){
-      let indice = this.lista.findIndex(x => {return x.id == Carro.id});
-      this.lista.splice(indice, 1);
+
+        this.carroService.delete(Carro.id).subscribe({
+          next: mensagem => { //quando o back retornar oque se espera
+            alert("Deletado com sucesso!");
+
+            this.findAll();
+          },
+          error: erro =>{ //quando ocorrer qualquer erro
+            alert('Ocorreu algum erro')
+          }
+        });
+
       }
     }
 
