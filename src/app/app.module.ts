@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
 import { MarcasdetailsComponent } from './components/marcas/marcasdetails/marcasdetails.component';
 import { MarcaslistComponent } from './components/marcas/marcaslist/marcaslist.component';
 import { RouterLink, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -64,7 +64,7 @@ import { HttpClientModule } from '@angular/common/http';
     MarcaslistComponent,
     MdbModalModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: []
 

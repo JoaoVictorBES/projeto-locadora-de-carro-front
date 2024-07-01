@@ -1,7 +1,8 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Carro } from '../models/carro';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -9,19 +10,37 @@ import { Carro } from '../models/carro';
 })
 export class CarroService {
 
-  http = inject(HttpClient);
+  API = "http://localhost:8080/carro";
 
-  API = "http://localhost:8080/api/carro";
+  http = inject(HttpClient);
 
   constructor() {}
 
   findAll(): Observable<Carro[]>{
-    return this.http.get<Carro[]>(this.API+ "/findAll");
+    return this.http.get<Carro[]>(`${this.API}/findAll`);
   }
 
   delete(id: number): Observable<string>{
                                                             // quando o retorno for string eu uso essa regra p nao dar pau //
-    return this.http.delete<string>(this.API+ "/delete" + id, {responseType: 'text' as 'json'});
+    return this.http.delete<string>(`${this.API}/delete/${id}`, { responseType: 'text' as 'json'});
+
+  }
+
+  save(carro: Carro): Observable<string>{
+
+    return this.http.post<string>(this.API + "/save/", carro, { responseType: 'text' as 'json'});
+
+  }
+
+  update(carro: Carro, id: number): Observable<string>{
+
+    return this.http.put<string>(this.API + "/update/" + id, carro, { responseType: 'text' as 'json'});
+
+  }
+
+  findById(id: number): Observable<Carro>{
+
+    return this.http.get<Carro>(this.API + "/findById/" + id, { responseType: 'text' as 'json'});
 
   }
 }

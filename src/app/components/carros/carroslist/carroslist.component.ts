@@ -5,30 +5,31 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Carro } from 'src/app/models/carro';
 import { CarrosdetailsComponent } from '../carrosdetails/carrosdetails.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'app-carroslist',
     standalone: true,
     templateUrl: './carroslist.component.html',
     styleUrls: ['./carroslist.component.scss'],
-    imports: [CommonModule, CarroslistComponent, CarrosdetailsComponent]
+    imports: [CommonModule, CarroslistComponent, CarrosdetailsComponent, RouterLink, RouterOutlet, HttpClientModule]
 })
-export class CarroslistComponent  {
+export class CarroslistComponent implements OnInit{
 
   // Declarações
 
   lista: Carro[] = [];
   carroEdit: Carro = new Carro(0, "");
 
-  // Elementos da modal //
+  // Elementos da modal
   modalService = inject(MdbModalService); //Para conseguir abrir a modal
   @ViewChild('modalCarroDetalhe') modalCarroDetalhe!: TemplateRef<any>; // referencia do template da model no html
   modalRef!: MdbModalRef<any>;
 
-  carroService = inject(CarroService);
+  //carroService = inject(CarroService);
 
-  constructor(){
-    this.findAll();
+
+  constructor(private carroService: CarroService){
 
     let carroNovo = history.state.carroNovo;
     let carroEditado = history.state.carroEditado
@@ -45,8 +46,13 @@ export class CarroslistComponent  {
 
   }
 
-    findAll(){
+  ngOnInit() {
+    alert('iniciei')
+    this.findAll()
+  }
 
+
+    findAll(){
       this.carroService.findAll().subscribe({
         next: lista => { //quando o back retornar oque se espera
           this.lista = lista;
@@ -58,7 +64,7 @@ export class CarroslistComponent  {
 
     }
 
-    deleteById(Carro: Carro){
+    delete(Carro: Carro){
       if (confirm("Tem certeza que deseja deletar este registro?") ){
 
         this.carroService.delete(Carro.id).subscribe({
@@ -87,15 +93,10 @@ export class CarroslistComponent  {
     }
 
     retornoDetalhe(carro: Carro){
-      if (carro.id > 0){
-        let indice = this.lista.findIndex(x => { return x.id == carro.id});
-        this.lista[indice] = carro;
-      }else{
-        carro.id = 55;
-        this.lista.push(carro);
-      }
 
+      this.findAll();
       this.modalRef.close();
+      
     }
 }
 

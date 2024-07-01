@@ -1,4 +1,6 @@
+import { CarroService } from './../../../services/carro.service';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -9,7 +11,7 @@ import { Carro } from 'src/app/models/carro';
 @Component({
   selector: 'app-carrosdetails',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MdbFormsModule, FormsModule, RouterLink],
+  imports: [RouterOutlet, CommonModule, MdbFormsModule, FormsModule, RouterLink, HttpClientModule],
   templateUrl: './carrosdetails.component.html',
   styleUrls: ['./carrosdetails.component.scss'],
 
@@ -21,6 +23,8 @@ export class CarrosdetailsComponent  {
   router = inject(ActivatedRoute);
   router2 = inject(Router);
 
+  CarroService = inject(CarroService);
+
   constructor(){
     let id = this.router.snapshot.params['id'];
     if (id > 0){
@@ -30,21 +34,53 @@ export class CarrosdetailsComponent  {
   }
 
   findById(id: number){
-    // busca no back-end //
-    let carroRetornado: Carro = new Carro(id, "gol");
-    this.carro = carroRetornado;
+
+    this.CarroService.findById(id).subscribe({
+      next: retorno => {
+        this.carro = retorno;
+      },
+      error: erro => {
+        alert('Ocorreu algum erro');
+      }
+    })
+
   }
 
   save(){
     if (this.carro.id > 0){
-      alert ('Editado com sucesso!');
-      this.router2.navigate(['admin/carros'], { state: { carroEditado: this.carro} });
+      this.CarroService.update(this.carro, this.carro.id).subscribe({
+        next: mensagem => {
+
+          alert ('Editado com sucesso!');
+          this.router2.navigate(['admin/carros'], { state: { carroEditado: this.carro} });
+          this.retorno.emit(this.carro);
+
+        },
+        error: erro => {
+
+          alert('Ocorreu algum erro')
+
+        }
+      })
+
+
     }else{
-    alert ('Salvo com sucesso!');
-    this.router2.navigate(['admin/carros'], { state: { carroNovo: this.carro} });
+
+      this.CarroService.save(this.carro).subscribe({
+        next: retorno => {
+          this.router2.navigate(['admin/carros'], { state: { carroEditado: this.carro} });
+          this.retorno.emit(this.carro);
+          alert ('Salvo com sucesso!');
+        },
+        error: erro => {
+          alert('Ocorreu algum erro')
+        }
+      })
+
+
     }
 
-    this.retorno.emit(this.carro);
+    
   }
 
 }
