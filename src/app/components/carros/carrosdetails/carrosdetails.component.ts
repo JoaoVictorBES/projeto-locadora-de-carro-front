@@ -1,17 +1,20 @@
 import { CarroService } from './../../../services/carro.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { MdbModalService, MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { Subscriber } from 'rxjs';
 import { Carro } from 'src/app/models/carro';
+import { Marca } from 'src/app/models/marca';
+import { MarcaslistComponent } from '../../marcas/marcaslist/marcaslist.component';
 
 @Component({
   selector: 'app-carrosdetails',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MdbFormsModule, FormsModule, RouterLink, HttpClientModule],
+  imports: [CommonModule, MdbFormsModule, FormsModule, MarcaslistComponent ],
   templateUrl: './carrosdetails.component.html',
   styleUrls: ['./carrosdetails.component.scss'],
 
@@ -22,6 +25,13 @@ export class CarrosdetailsComponent  {
   @Output('retorno') retorno: EventEmitter<Carro> = new EventEmitter<Carro>();
   router = inject(ActivatedRoute);
   router2 = inject(Router);
+
+
+
+  // Elementos da modal
+  modalService = inject(MdbModalService); //Para conseguir abrir a modal
+  @ViewChild('modalMarcas') modalMarcas!: TemplateRef<any>; // referencia do template da model no html
+  modalRef!: MdbModalRef<any>;
 
   CarroService = inject(CarroService);
 
@@ -80,7 +90,14 @@ export class CarrosdetailsComponent  {
 
     }
 
-    
   }
 
+  buscarMarca(){
+    this.modalRef = this.modalService.open(this.modalMarcas, {modalClass: 'modal-lg'});
+  }
+
+  retornoMarca(marca: Marca){
+    this.carro.marca = marca;
+    this.modalRef.close();
+  }
 }

@@ -1,3 +1,4 @@
+
 <br />
 <div class="container">
   <div class="row">
@@ -5,7 +6,7 @@
       <div class="card">
         <div class="card-body">
 
-          <h3>Listagem de marcas</h3>
+          <h3>Listagem de acessorios</h3>
           <div class="direita">
 
             <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="new()">
@@ -13,7 +14,7 @@
             </button>
 
             <!--
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/marcas/new">
+          <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/acessorios/new">
             Novo
           </button>
           -->
@@ -29,20 +30,20 @@
               </tr>
             </thead>
             <tbody>
-              @for (marca of lista; track $index) {
+              @for (acessorio of lista; track $index) {
               <tr>
-                <td>{{ marca.id }}</td>
-                <td>{{ marca.nome }}</td>
+                <td>{{ acessorio.id }}</td>
+                <td>{{ acessorio.nome }}</td>
                 <td class="direita">
                   @if (esconderBotoes) {
-                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="select(marca)">
+                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="select(acessorio)">
                       Selecionar
                     </button>
                   }@else{
-                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(marca)">
+                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(acessorio)">
                       Editar
                     </button>
-                    <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deleteById(marca)">
+                    <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deleteById(acessorio)">
                       Deletar
                     </button>
                   }
@@ -59,7 +60,7 @@
 
 
 
-<ng-template #modalMarcaDetalhe>
+<ng-template #modalAcessorioDetalhe>
 <div class="modal-header">
   <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
   <button
@@ -71,7 +72,7 @@
 </div>
 <div class="modal-body">
 
-  <app-marcasdetails [marca]="marcaEdit" (retorno)="retornoDetalhe($event)"></app-marcasdetails>
+  <app-acessoriosdetails [acessorio]="acessorioEdit" (retorno)="retornoDetalhe($event)"></app-acessoriosdetails>
 
 </div>
 

@@ -18,6 +18,21 @@
 
             <br>
 
+            <div>
+              @if(carro.marca == null){
+              <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="buscarMarca()">
+                buscar Marca
+              </button>
+            }@else {
+
+              <span class="text-primary">Marca: {{carro.marca.nome}}</span>
+
+              <button type="button" class="btn btn-warning btn-rounded" mdbRipple (click)="save()">
+                Trocar Marca
+              </button>
+            }
+            </div>
+
             <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="save()">
               Salvar
             </button>
@@ -31,3 +46,21 @@
   </div>
 
 </div>
+
+<ng-template #modalMarcas>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+
+    <app-marcaslist [esconderBotoes]="true" (retorno)="retornoMarca ($event)"></app-marcaslist>
+
+  </div>
+
+  </ng-template>

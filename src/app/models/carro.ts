@@ -1,13 +1,15 @@
+import { Marca } from "./marca";
 
 export class Carro {
 
   id! : number;
   nome! : string;
-  static id: number;
+  marca!: Marca;
 
-  constructor(id: number, nome: string){
+  constructor(id: number, nome: string, marca: Marca){
     this.id = id;
     this.nome = nome;
+    if (marca) this.marca = marca;
   }
 }
 
