@@ -5,6 +5,7 @@ import { CarroslistComponent } from './components/carros/carroslist/carroslist.c
 import { CarrosdetailsComponent } from './components/carros/carrosdetails/carrosdetails.component';
 import { MarcaslistComponent } from './components/marcas/marcaslist/marcaslist.component';
 import { MarcasdetailsComponent } from './components/marcas/marcasdetails/marcasdetails.component';
+import { AcessoriodetailsComponent } from './components/acessorios/acessoriodetails/acessoriodetails.component';
 
 
 export const routes: Routes = [
@@ -23,6 +24,9 @@ export const routes: Routes = [
     {path: "marcas", component: MarcaslistComponent},
     {path: "marcas/new", component: MarcasdetailsComponent},
     {path: "marcas/edit/:id", component: MarcasdetailsComponent},
+    {path: "acessorio", component: AcessoriodetailsComponent},
+    {path: "acessorio/new", component: AcessoriodetailsComponent },
+    {path: "acessorio/edit/:id", component: AcessoriodetailsComponent }
 
   ]}
 
