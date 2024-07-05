@@ -6,6 +6,7 @@ import { CarrosdetailsComponent } from './components/carros/carrosdetails/carros
 import { MarcaslistComponent } from './components/marcas/marcaslist/marcaslist.component';
 import { MarcasdetailsComponent } from './components/marcas/marcasdetails/marcasdetails.component';
 import { AcessoriodetailsComponent } from './components/acessorios/acessoriodetails/acessoriodetails.component';
+import { loginGuard } from './auth/login.guard';
 
 
 export const routes: Routes = [
@@ -15,7 +16,7 @@ export const routes: Routes = [
   {path: "login", component: LoginComponent},
 
   // rotas filhas renderizam o conteúdo declarando como "pai" e o delas proprias junto //
-  {path: "admin", component: PrincipalComponent, children:[
+  {path: "admin", component: PrincipalComponent, canActivate: [loginGuard], children:[
 
     {path: "carros", component: CarroslistComponent},
     {path: "carros/new", component: CarrosdetailsComponent},
